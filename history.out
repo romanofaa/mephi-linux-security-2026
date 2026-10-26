@@ -1,0 +1,94 @@
+    1  2026-10-24 19:33:45 echo 'PROMPT_COMMAND="history -a"' >> ~/.bashrc
+    2  2026-10-24 19:33:45 echo 'HISTTIMEFORMAT="%F %T "' >> ~/.bashrc
+    3  2026-10-24 19:33:45 source ~/.bashrc
+    4  2026-10-24 19:33:56 history | tail -3
+    5  2026-10-24 19:35:07 sudo groupadd students
+    6  2026-10-24 19:36:00 getnet group students
+    7  2026-10-24 19:36:41 getent group students
+    8  2026-10-24 21:23:25 sudo useradd -u 1234 -g students -m user1
+    9  2026-10-24 21:23:43 id user1
+   10  2026-10-24 21:26:53 sudo passwd user1
+   11  2026-10-24 21:30:13 sudo chage -M 90 user1
+   12  2026-10-24 21:30:29 sudo chage -l user1
+   13  2026-10-24 21:33:37 getent passwd user1
+   14  2026-10-24 21:33:55 ls -ld /home/user1
+   15  2026-10-24 21:36:35 sudo find / -type f -perm -4000 2>/dev/null > ~/suid_files.out
+   16  2026-10-24 21:37:12 cat suid_files.out 
+   17  2026-10-24 21:37:44 wc -l ~/suid_files.out 
+   18  2026-10-24 21:53:13 ps -eo pid,ruid,euid,ruser,euser,comm | awk 'NR==1 || ($2>=1000 && $2<65534 && $3==0)'
+   19  2026-10-24 23:51:29 ps -eo pid,ruid,euid,ruser,euser,comm | awk 'NR==1 || ($2>=1000 && $2<65534 && $3==0)' | tee ~/suid_files.out 
+   20  2026-10-24 23:50:30 passwd
+   21  2026-10-24 23:52:53 exit 
+   22  2026-10-24 23:55:12 mv ~/suid_files.out ~/suid_processes.out
+   23  2026-10-24 23:55:12 sudo find / -type f -perm -4000 2>/dev/null > ~/suid_files.out
+   24  2026-10-24 23:55:22 wc -l ~/suid_files.out ~/suid_processes.out
+   25  2026-10-25 16:06:47 findmnt -T /home/user1 -o TARGET,OPTIONS
+   26  2026-10-25 16:07:22 sudo -u user1 cat /etc/shadow
+   27  2026-10-25 16:15:52 sudo cp /usr/bin/cat /home/user1/cat_suid
+   28  2026-10-25 16:17:32 ls -la /home/user1/
+   29  2026-10-25 16:17:41 sudo cp /usr/bin/cat /home/user1/cat_suid
+   30  2026-10-25 16:18:12 sudo ls -ls /home/user1/
+   31  2026-10-25 16:19:15 sudo chown root:root /home/user1/cat_suid
+   32  2026-10-25 16:20:10 sudo chmod u+s /home/user1/cat_suid
+   33  2026-10-25 16:20:31 sudo ls -l /home/user1/cat_suid
+   34  2026-10-25 16:24:54 sudo -u user1 /home/user1/cat_suid /etc/shadow | head -3
+   35  2026-10-25 16:40:05 sudo stat /home/user1 > ~/stat.out
+   36  2026-10-25 16:40:22 sudo stat /home/user1/cat_suid >> ~/stat.out
+   37  2026-10-25 16:40:30 cat ~/stat.out
+   38  2026-10-25 23:32:30 sudo stat /home/user1 > ~/stat.out
+   39  2026-10-25 23:33:24 sudo stat /home/user1/cat_suid >> ~/stat.out
+   40  2026-10-25 23:33:37 cat ~/stat.out
+   41  2026-10-25 23:34:43 sudo -u user1 touch /home/user1/test.txt
+   42  2026-10-25 23:34:43 sudo -u user1 chown romanovaa /home/user1/test.txt
+   43  2026-10-26 06:49:28 sudo cp /usr/bin/chown /home/user1/chown_cap
+   44  2026-10-26 06:49:36 sudo setcap cap_chown+ep /home/user1/chown_cap
+   45  2026-10-26 06:49:36 sudo getcap /home/user1/chown_cap
+   46  2026-10-26 06:49:36 sudo ls -l /home/user1/chown_cap
+   47  2026-10-26 06:51:21 sudo -u user1 /home/user1/chown_cap romanovaa /home/user1/test.txt
+   48  2026-10-26 06:51:21 sudo ls -l /home/user1/test.txt
+   49  2026-10-26 06:54:50 sudo getcap /home/user1/chown_cap > ~/getcap.out
+   50  2026-10-26 06:54:50 sudo stat /home/user1/chown_cap >> ~/stat.out
+   51  2026-10-26 06:54:50 cat ~/getcap.out
+   52  2026-10-26 06:54:50 grep -c "File:" ~/stat.out
+   53  2026-10-26 06:55:44 tamedatectl
+   54  2026-10-26 06:55:55 timedatectl
+   55  2026-10-26 06:58:45 sudo timedatectl set-timezone Europe/Moscow
+   56  2026-10-26 06:58:45 timedatectl | grep "Time zone"
+   57  2026-10-26 06:58:45 which date timedatectl
+   58  2026-10-26 06:59:23 sudo EDITOR=nano visudo
+   59  2026-10-26 07:01:20 fg
+   60  2026-10-26 07:07:09 sudo tail -3 /etc/sudoers
+   61  2026-10-26 07:07:42 sudo visudo
+   62  2026-10-26 07:09:18 sudo tail -3 /etc/sudoers
+   63  2026-10-26 07:09:18 sudo -l -U user1
+   64  2026-10-26 07:10:15 sudo timedatectl set-ntp false
+   65  2026-10-26 07:10:16 timedatectl | grep NTP
+   66  2026-10-26 07:10:26 sudo -u user1 sudo date -s "2026-10-26 12:00:00"
+   67  2026-10-26 07:11:05 sudo -u user1 sudo timedatectl set-time "2026-10-26 12:30:00"
+   68  2026-10-26 12:30:00 date
+   69  2026-10-26 12:30:00 sudo -u user1 sudo timedatectl set-timezone UTC
+   70  2026-10-26 12:31:21 sudo -u user1 sudo date -s "2026-10-26 12:00:00"
+   71  2026-10-26 12:00:14 date
+   72  2026-10-26 12:00:25 sudo -u user1 sudo timedatectl set-timezone UTC
+   73  2026-10-26 12:01:54 sudo -u user1 sudo timedatectl set-time "2026-10-26 12:30:00"
+   74  2026-10-26 12:30:09 date
+   75  2026-10-26 12:30:35 sudo timedatectl set-ntp true
+   76  2026-10-26 12:30:36 sleep 30
+   77  2026-10-26 07:16:36 timedatectl
+   78  2026-10-26 07:16:45 sudo timedatectl set-ntp false
+   79  2026-10-26 07:16:45 timedatectl | grep NTP
+   80  2026-10-26 07:18:23 tail -3 ~/.bash_history
+   81  2026-10-26 07:19:11 sudo reboot
+   82  2026-10-26 07:18:10 id user1
+   83  2026-10-26 07:18:10 sudo chage -l user1 | grep Maximum
+   84  2026-10-26 07:18:17 sudo ls -l /home/user1/cat_suid
+   85  2026-10-26 07:18:17 sudo getcap /home/user1/chown_cap
+   86  2026-10-26 07:18:17 sudo -l -U user1 | tail -1
+   87  2026-10-26 07:18:17 timedatectl | grep -E "Time zone|NTP"
+   88  2026-10-26 08:00:32 mkdir ~/mephi-linux-security-2026
+   89  2026-10-26 08:00:32 cd ~/mephi-linux-security-2026
+   90  2026-10-26 08:00:32 sudo cp /etc/passwd /etc/shadow /etc/group /etc/sudoers .
+   91  2026-10-26 08:00:46 cp ~/stat.out ~/getcap.out ~/suid_files.out ~/suid_processes.out .
+   92  2026-10-26 08:00:46 sudo chown romanovaa:romanovaa *
+   93  2026-10-26 08:00:47 ls -l
+   94  2026-10-26 08:01:14 history > ~/mephi-linux-security-2026/history.out

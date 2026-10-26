@@ -1,0 +1,2 @@
+    PID  RUID  EUID RUSER    EUSER    COMMAND
+   1917  1000     0 romanov+ root     passwd
